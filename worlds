@@ -1,0 +1,118 @@
+
+#VRML_SIM R2023b utf8
+
+WorldInfo {
+  basicTimeStep 32
+}
+
+Viewpoint {
+  orientation -0.4 0.9 0.2 1.5
+  position 0 1 3
+}
+
+Floor {}
+
+DEF ROBOT Robot {
+  translation 0 0 0.1
+  rotation 0 1 0 0
+  controller "robot_courrier"
+  children [
+    DEF BODY Shape {
+      appearance PBRAppearance {
+        baseColor 0.3 0.3 0.8
+      }
+      geometry Box {
+        size 0.3 0.05 0.2
+      }
+    }
+
+    # Roue avant gauche
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor -0.1 0.03 0.1
+      }
+      device [
+        RotationalMotor {
+          name "left_motor"
+        }
+      ]
+      endPoint Solid {
+        translation -0.1 0.03 0.1
+        rotation 0 0 1 1.57
+        children [
+          Shape {
+            appearance PBRAppearance {
+              baseColor 0 0 0
+            }
+            geometry Cylinder {
+              radius 0.025
+              height 0.02
+            }
+          }
+        ]
+      }
+    }
+
+    # Roue avant droite
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 1 0
+        anchor 0.1 0.03 0.1
+      }
+      device [
+        RotationalMotor {
+          name "right_motor"
+        }
+      ]
+      endPoint Solid {
+        translation 0.1 0.03 0.1
+        rotation 0 0 1 1.57
+        children [
+          Shape {
+            appearance PBRAppearance {
+              baseColor 0 0 0
+            }
+            geometry Cylinder {
+              radius 0.025
+              height 0.02
+            }
+          }
+        ]
+      }
+    }
+
+    # Roues arrière (passives)
+    Solid {
+      translation -0.1 0.03 -0.1
+      rotation 0 0 1 1.57
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 0
+          }
+          geometry Cylinder {
+            radius 0.025
+            height 0.02
+          }
+        }
+      ]
+    }
+
+    Solid {
+      translation 0.1 0.03 -0.1
+      rotation 0 0 1 1.57
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 0
+          }
+          geometry Cylinder {
+            radius 0.025
+            height 0.02
+          }
+        }
+      ]
+    }
+  ]
+}
