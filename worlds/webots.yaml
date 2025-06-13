@@ -1,0 +1,5 @@
+world: worlds/robot.wbt
+project:
+  version: R2022b
+  language: python
+  controller: robot_courrier
